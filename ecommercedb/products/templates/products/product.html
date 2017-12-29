@@ -1,0 +1,62 @@
+{% extends 'ecommercedb/base.html' %}
+
+{% block backgroud-image %}{% endblock backgroud-image %}
+
+
+
+
+{% block content %}
+
+	{% load static %}
+
+	{% for product in product_list %}
+		{% if forloop.counter0|divisibleby:3 %}
+		<div class="row" >
+		{% endif %}
+			<div class="col-sm-12 col-md-6 col-lg-4" style="text-align: center;">
+				<div class="thumbnail" style="width: 100%; padding: 5%;">
+					<div >
+						<div class = "img-responsive">
+
+							{% if 'media' in product.url %} {# kullanıcı ürün yükledi db media die kayıtlı ya. #}
+								<img src="{{ product.url }}">
+							{% else %}
+								<img src="{% static product.url %}">
+							{% endif %}
+
+						</div>
+
+						<h4>{{ product.name }}</h4>
+						<h4><strong>{{ product.price }}</strong> TL<small>'den başlayan fiyatlarla</small></h4>
+
+						<button class="btn btn-primary" type="button">
+						  Stock: <span class="badge">{{ product.stock }}</span>
+						</button>
+
+						<h6>{{ product.description }}</h6>
+						<p>
+							{% if email is not none %}
+							<button type="button" class="btn btn-info">
+								<a style="color: white;"
+				               href={% url 'product-order' id=product.id %}>Order</a>
+							</button>
+							{% endif %}
+				            <button type="button" class="btn btn-success">
+					            <a style="color: white;"
+				               href={% url 'product-detail' id=product.id %}>Review</a>
+				            </button>
+						</p>
+						<div id="viewed_btn">
+							<button class="btn btn-danger" type="button" >
+							  Total Views: <span class="badge">{{ product.viewed }}</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			{%  if forloop.counter|divisibleby:3 or forloop.last %}</div> {%  endif %}
+		</div>
+	{% endfor %}
+
+
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="samet@localhost" uuid="61f25d9d-a052-4262-9322-9bd81a890ac0">
+      <database-info product="PostgreSQL" version="10.0" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.1.1">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
+      <resolve-scope>samet:postgres,public</resolve-scope>
+    </data-source>
+    <data-source name="postgres@localhost" uuid="a9e54953-448f-4680-9244-582bf1b80207">
+      <database-info product="PostgreSQL" version="10.0" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.1.1">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <resolve-scope>postgres:public</resolve-scope>
+    </data-source>
+  </component>
+</project>

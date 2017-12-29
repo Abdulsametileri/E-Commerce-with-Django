@@ -1,0 +1,68 @@
+{% extends 'ecommercedb/base.html' %}
+
+{% block content %}
+
+	<form action="" method='post' enctype="multipart/form-data"> {% csrf_token %}
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">Product Image:</div>
+
+			<div class="panel-body">
+				<input type="file" name="myfile">
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">Product Name:</div>
+			<div class="panel-body">
+				<input type="text" class="form-control" name='product_name'>
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">Product Description:</div>
+			<div class="panel-body">
+				<input type="text" class="form-control" name='product_description'>
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">Product Price:</div>
+			<div class="panel-body">
+				<input type="number" class="form-control" name='product_price'>
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">Product Stock:</div>
+			<div class="panel-body">
+				<input type="number" class="form-control" name='product_stock'>
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">Product Sub Category:</div>
+			<div class="panel-body">
+				<select class="form-control" name="subcat">
+					<option value=1>Desktop</option>
+					<option value=2>Laptop</option>
+					<option value=3>Tablet</option>
+					<option value=4>Microphone</option>
+					<option value=5>Gaming Headphones</option>
+					<option value=6>Phone Headsets</option>
+					<option value=7>Bluetooth</option>
+					<option value=8>Broom</option>
+					<option value=9>Iron</option>
+					<option value=10>Television</option>
+				</select>
+			</div>
+		</div>
+		<div class="panel-body">
+			<button type="submit" class="btn btn-success btn-lg" style="width:100%;">
+				Add
+			</button>
+		</div>
+
+	</form>
+
+{% endblock %}

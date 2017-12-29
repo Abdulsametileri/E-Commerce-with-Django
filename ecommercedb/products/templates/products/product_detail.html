@@ -1,0 +1,43 @@
+{% extends 'ecommercedb/base.html' %}
+
+{% block backgroud-image %}{% endblock backgroud-image %}
+
+{% block content %}
+
+	<body>
+
+	<div>
+		<div class="col-md-6 col-lg-4">
+			{% load static %}
+			<div class="panel-heading panel-primary">
+				<h3 style="text-align: center">{{ product.Name }}</h3>
+			</div>
+			<div class="panel-body" style="text-align: center;">
+				{% if 'media' in product.url %} {# kullanıcı ürün yükledi db media die kayıtlı ya. #}
+					<img src="{{ product.url }}">
+				{% else %}
+					<img src="{% static product.url %}">
+				{% endif %}
+			</div>
+
+		</div>
+		<div class="col-md-6 col-lg-8">
+			<table class="table borderless">
+				{% for key, value in product.items %}
+					<tr>
+						{% if key != "url" and key != "Name" %}
+							<th>
+								<label>{{ key }}: </label>
+							<td>
+								{{ value }}
+							</td>
+						{% endif %}
+					</tr>
+				{% endfor %}
+			</table>
+
+		</div>
+	</div>
+	</body>
+
+{% endblock content %}

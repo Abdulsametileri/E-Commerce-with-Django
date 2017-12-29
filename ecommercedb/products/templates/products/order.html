@@ -1,0 +1,254 @@
+{% extends 'ecommercedb/base.html' %}
+
+
+{% block backgroud-image %}{% endblock backgroud-image %}
+
+{% block content %}
+
+
+	<script>
+        function copyTo(obj) {
+            document.getElementById("price_label").textContent = obj.value + " Piece";
+            calcTotal();
+        }
+        function calcTotal(obj) {
+            var k = document.getElementById("price_label").textContent;
+            var p = parseFloat(parseInt(k, 10) * {{ product.price }}, 10).toFixed(3);
+
+            if (isNaN(p))
+                document.getElementById("total_price").textContent = 0 + "₺";
+            else
+                document.getElementById("total_price").textContent = parseFloat(parseInt(k, 10) * {{ product.price }}, 10).toFixed(3) + "₺";
+        }
+	</script>
+
+
+
+	<div class='row' style='padding-top:25px; padding-bottom:25px;'>
+		<div class='col-md-12'>
+			<div id='mainContentWrapper'>
+				<div class="col-md-8 col-md-offset-2">
+					<h2 style="text-align: center;">
+						Review Your Order & Complete Checkout
+					</h2>
+					<h3 style="text-align: center">
+						{{ message_error }}
+					</h3>
+
+					<hr/>
+					<div class="shopping_cart">
+						<form class="form-horizontal"
+						      action="{% url 'product-order' id=product_id %}" method="post" id="payment-form">
+						    {% csrf_token %}
+							<div class="panel-group" id="accordion">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Review
+												Your Order</a>
+										</h4>
+									</div>
+									<div id="collapseOne" class="panel-collapse collapse in">
+										<div class="panel-body">
+											<div class="items">
+												<div class="col-md-9">
+													<table class="table table-striped">
+														<tr>
+															<td>
+																<ul>
+																	<li>{{ product.name }}</li>
+																</ul>
+																<ul>
+																	<li>Piece</li>
+																	<input type="number" class="form-control"
+																	       id="amount" name="amount"
+																	       onkeyup="copyTo(this)">
+																</ul>
+															</td>
+															<td>
+																<b id="product_price_id">{{ product.price }}₺</b>
+															</td>
+
+														</tr>
+													</table>
+												</div>
+												<div class="col-md-3">
+													<div style="text-align: center;">
+														<h3>Order Total</h3>
+														<h4 id="price_label"></h4>
+
+														<h3 id="total_price" onclick="calcTotal(this)"
+														    style="color:green;">0₺</h3>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<div style="text-align: center; width:100%;"><a style="width:100%;"
+										                                                data-toggle="collapse"
+										                                                data-parent="#accordion"
+										                                                href="#collapseTwo"
+										                                                class=" btn btn-success"
+										                                                onclick="$(this).fadeOut(); $('#payInfo').fadeIn();">Continue
+											to Billing Information»</a></div>
+									</h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Contact
+											and Billing Information</a>
+									</h4>
+								</div>
+								<div id="collapseTwo" class="panel-collapse collapse">
+									<div class="panel-body">
+										<b>Help us keep your account safe and secure, please verify your billing
+											information.</b>
+										<br/><br/>
+										<table class="table table-striped" style="font-weight: bold;">
+
+											<tr>
+												<td style="width: 175px;">
+													<label for="id_first_name">First name:</label></td>
+												<td>
+													<input class="form-control" id="id_first_name" name="first_name"
+													       required="required" type="text"/>
+												</td>
+											</tr>
+											<tr>
+												<td style="width: 175px;">
+													<label for="id_last_name">Last name:</label></td>
+												<td>
+													<input class="form-control" id="id_last_name" name="last_name"
+													       required="required" type="text"/>
+												</td>
+											</tr>
+											<tr>
+												<td style="width: 175px;">
+													<label for="id_address_line_1">Address:</label></td>
+												<td>
+													<input class="form-control" id="id_address_line_1"
+													       name="address" required="required" type="text"/>
+												</td>
+											</tr>
+
+											<tr>
+												<td style="width: 175px;">
+													<label for="id_phone">Phone:</label></td>
+												<td>
+													<input class="form-control" id="id_phone" name="phone" type="text"/>
+												</td>
+											</tr>
+											<tr>
+												<td style="width: 175px;">
+													<label for="id_cargo">Cargo:</label></td>
+												<td>
+													<select name="dropdown">
+														<option value="A Cargo">A Cargo</option>
+														<option value="B Cargo">B Cargo</option>
+													</select>
+												</td>
+											</tr>
+
+
+										</table>
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<div style="text-align: center;"><a data-toggle="collapse"
+										                                    data-parent="#accordion"
+										                                    href="#collapseThree"
+										                                    class=" btn   btn-success" id="payInfo"
+										                                    style="width:100%;display: none;" onclick="$(this).fadeOut();
+                   document.getElementById('collapseThree').scrollIntoView()">Enter Payment Information »</a>
+										</div>
+									</h4>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+											<b>Payment Information</b>
+										</a>
+									</h4>
+								</div>
+								<div id="collapseThree" class="panel-collapse collapse">
+									<div class="panel-body">
+										<span class='payment-errors'></span>
+										<fieldset>
+											<legend>What method would you like to pay with today?</legend>
+											<div class="form-group">
+												<label class="col-sm-3 control-label" for="card-holder-name">Name on
+													Card</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" stripe-data="name"
+													       name = "card_name"
+													       id="name-on-card" placeholder="Card Holder's Name">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label" for="card-number">Card
+													Number</label>
+												<div class="col-sm-9">
+													<input type="text" class="form-control" stripe-data="number"
+													       name="card_number"
+													       id="card-number" placeholder="Debit/Credit Card Number">
+													<br/>
+													<div><img class="pull-right"
+													          src="https://s3.amazonaws.com/hiresnetwork/imgs/cc.png"
+													          style="max-width: 250px; padding-bottom: 20px;">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label class="col-sm-3 control-label" for="cvv">Card CVC</label>
+													<div class="col-sm-3">
+														<input type="text" class="form-control" stripe-data="cvc"
+														       name="card_cvc"
+														       id="card-cvc" placeholder="Security Code">
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-offset-3 col-sm-9">
+													</div>
+												</div>
+											</div>
+											<button type="submit" class="btn btn-success btn-lg" style="width:100%;">Pay
+												Now
+											</button>
+											<br/>
+											<div style="text-align: left;"><br/>
+												By submiting this order you are agreeing to our <a
+														href="/legal/billing/">universal
+													billing agreement</a>, and <a href="/legal/terms/">terms of
+													service</a>.
+												If you have any questions about our products or services please contact
+												us
+												before placing this order.
+											</div>
+										</fieldset>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+{% endblock content %}
