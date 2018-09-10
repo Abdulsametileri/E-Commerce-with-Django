@@ -1,5 +1,8 @@
 # E-Commerce Django Implementation
 
+DB SCHEMA
+![DB_SCHEMA](Images/db_schema.png)
+
 Home screen for non-members, the member or non-member can view different products as selected randomly. Non-members can only review the products. In order to give order non-members have to register in my system.
 
 ![Home Screen](Images/Picture1.png)
